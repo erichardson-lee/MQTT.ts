@@ -1,7 +1,4 @@
-import {
-  assertEquals,
-  assertThrows,
-} from "asserts";
+import { assertEquals, assertThrows } from "asserts";
 import type { ConnackPacket } from "./connack.ts";
 import { decode, encode } from "./connack.ts";
 

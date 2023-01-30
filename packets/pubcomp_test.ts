@@ -1,7 +1,4 @@
-import {
-  assertEquals,
-  assertThrows,
-} from "asserts";
+import { assertEquals, assertThrows } from "asserts";
 import type { PubcompPacket } from "./pubcomp.ts";
 import { decode, encode } from "./pubcomp.ts";
 

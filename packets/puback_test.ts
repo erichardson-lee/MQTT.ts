@@ -1,7 +1,4 @@
-import {
-  assertEquals,
-  assertThrows,
-} from "asserts";
+import { assertEquals, assertThrows } from "asserts";
 import type { PubackPacket } from "./puback.ts";
 import { decode, encode } from "./puback.ts";
 

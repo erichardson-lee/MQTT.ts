@@ -11,7 +11,7 @@ import type {
   PubrecPacket,
   PubrelPacket,
 } from "../packets/mod.ts";
-import { TestClient } from "./test_client.ts";
+import { TestClient } from "../lib/test_client.ts";
 
 Deno.test("publish qos 0 while connected", async () => {
   const client = new TestClient();

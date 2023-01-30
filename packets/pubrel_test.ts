@@ -1,7 +1,4 @@
-import {
-  assertEquals,
-  assertThrows,
-} from "asserts";
+import { assertEquals, assertThrows } from "asserts";
 import type { PubrelPacket } from "./pubrel.ts";
 import { decode, encode } from "./pubrel.ts";
 

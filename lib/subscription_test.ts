@@ -1,5 +1,5 @@
 import { assertEquals } from "asserts";
-import { TestClient } from "./test_client.ts";
+import { TestClient } from "../lib/test_client.ts";
 import type { SubscribePacket, UnsubscribePacket } from "../packets/mod.ts";
 import { encode as encodeConnack } from "../packets/connack.ts";
 import { encode as encodeSuback } from "../packets/suback.ts";

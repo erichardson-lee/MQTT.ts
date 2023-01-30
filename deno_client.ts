@@ -1,7 +1,7 @@
 import {
   Client as BaseClient,
   ClientOptions as BaseClientOptions,
-} from "../client/base_client.ts";
+} from "./lib/base_client.ts";
 
 export type ClientOptions = BaseClientOptions & {
   certFile?: string;

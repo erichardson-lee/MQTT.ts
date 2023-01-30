@@ -1,6 +1,6 @@
 #!/usr/bin/env deno run --allow-net
 
-import { Client } from '../../deno/mod.ts';
+import { Client } from '../mod.ts';
 
 async function main() {
   const client = new Client({

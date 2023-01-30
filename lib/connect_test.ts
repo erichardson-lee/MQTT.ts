@@ -1,6 +1,6 @@
 import { assertEquals } from "asserts";
 import { encode as encodeConnack } from "../packets/connack.ts";
-import { TestClient } from "./test_client.ts";
+import { TestClient } from "../lib/test_client.ts";
 
 Deno.test("connect/disconnect", async () => {
   const client = new TestClient();

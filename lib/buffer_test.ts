@@ -2,7 +2,7 @@ import { assertEquals } from "asserts";
 import { encode as encodeConnack } from "../packets/connack.ts";
 import type { PublishPacket } from "../packets/publish.ts";
 import { encode as encodePublish } from "../packets/publish.ts";
-import { TestClient } from "./test_client.ts";
+import { TestClient } from "../lib/test_client.ts";
 
 Deno.test("client can receive one byte at a time", async () => {
   const client = new TestClient();

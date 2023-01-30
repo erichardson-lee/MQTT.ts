@@ -1,43 +1,4 @@
 {
-  "fmt": {
-    "files": {
-      "include": [
-        "browser/browser_client.ts",
-        "browser/index.ts",
-        "client",
-        "deno",
-        "lib",
-        "node/index.ts",
-        "node/node_client.ts",
-        "packets"
-      ]
-    }
-  },
-  "lint": {
-    "files": {
-      "include": [
-        "browser/browser_client.ts",
-        "browser/index.ts",
-        "client",
-        "deno",
-        "lib",
-        "node/node_client.ts",
-        "node/node_client.ts",
-        "packets"
-      ]
-    }
-  },
   "importMap": ".deno/import_map.json",
-  "test": {
-    "files": {
-      "include": [
-        "client",
-        "packets"
-      ]
-    }
-  },
-  "tasks": {
-    "tsc": "deno check deno/mod.ts browser/index.ts node/index.ts",
-    "check": "deno lint && deno task tsc && deno test"
-  }
+  "tasks": {}
 }

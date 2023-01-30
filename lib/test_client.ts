@@ -1,7 +1,7 @@
 import {
   Client as BaseClient,
   ClientOptions as BaseClientOptions,
-} from "./base_client.ts";
+} from "../lib/base_client.ts";
 import { AnyPacket } from "../packets/mod.ts";
 
 type TestClientOptions = BaseClientOptions & {

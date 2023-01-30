@@ -1,5 +1,5 @@
 import { parse } from "std/flags/mod.ts";
-import { Client } from "../deno/mod.ts";
+import { Client } from "../mod.ts";
 import { setupLogger } from "./logger.ts";
 
 function usage() {
