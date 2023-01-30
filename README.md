@@ -1,5 +1,8 @@
 # MQTT.ts
 
+This repo is a fork of [JDiamond/MQTT.ts](https://github.com/jdiamond/MQTT.ts)
+as it is no longer maintained.
+
 This is an implementation of the MQTT 3.1.1 protocol written in TypeScript.
 
 It is _not_ a port of the excellent [MQTT.js](https://github.com/mqttjs/MQTT.js) package. I wrote it for "fun", originally using [Flow](https://flow.org/), but never finished and then forgot about it. When I saw there were no MQTT modules for Deno, I decided to convert it to TypeScript as an exercise in learning [Deno](https://deno.land/).
