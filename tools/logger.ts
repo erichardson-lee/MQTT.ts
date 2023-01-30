@@ -1,6 +1,6 @@
-import * as log from 'https://deno.land/std@0.70.0/log/mod.ts';
-import { LogRecord } from 'https://deno.land/std@0.70.0/log/logger.ts';
-import { LevelName } from 'https://deno.land/std@0.70.0/log/levels.ts';
+import * as log from "std/log/mod.ts";
+import { LogRecord } from "std/log/logger.ts";
+import { LevelName } from "std/log/levels.ts";
 
 export async function setupLogger(levelName: LevelName) {
   await log.setup({
@@ -14,13 +14,12 @@ export async function setupLogger(levelName: LevelName) {
           if (args.length > 0) {
             for (const arg of args) {
               if (arg instanceof Uint8Array) {
-                output +=
-                  ' ' +
+                output += " " +
                   [...arg]
-                    .map((byte) => byte.toString(16).padStart(2, '0'))
-                    .join(' ');
-              } else if (typeof arg === 'object') {
-                output += ' ' + Deno.inspect(arg);
+                    .map((byte) => byte.toString(16).padStart(2, "0"))
+                    .join(" ");
+              } else if (typeof arg === "object") {
+                output += " " + Deno.inspect(arg);
               }
             }
           }
@@ -32,10 +31,10 @@ export async function setupLogger(levelName: LevelName) {
     loggers: {
       mqtt: {
         level: levelName,
-        handlers: ['mqtt'],
+        handlers: ["mqtt"],
       },
     },
   });
 
-  return log.getLogger('mqtt');
+  return log.getLogger("mqtt");
 }

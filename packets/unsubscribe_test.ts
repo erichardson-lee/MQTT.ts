@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.70.0/testing/asserts.ts";
+import { assertEquals } from "asserts";
 import type { UnsubscribePacket } from "./unsubscribe.ts";
 import { decode, encode } from "./unsubscribe.ts";
 

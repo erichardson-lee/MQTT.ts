@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.70.0/testing/asserts.ts";
+import { assertEquals } from "asserts";
 import type { ConnectPacket } from "./connect.ts";
 import { decode, encode } from "./connect.ts";
 

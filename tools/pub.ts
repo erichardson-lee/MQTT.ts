@@ -1,9 +1,10 @@
-import { parse } from 'https://deno.land/std@0.70.0/flags/mod.ts';
-import { Client } from '../deno/mod.ts';
-import { setupLogger } from './logger.ts';
+import { parse } from "std/flags/mod.ts";
+import { Client } from "../deno/mod.ts";
+import { setupLogger } from "./logger.ts";
 
 function usage() {
-  console.log(`Usage: pub.ts -u mqtt://localhost -t topic/to/publish/to -m "message to publish"
+  console.log(
+    `Usage: pub.ts -u mqtt://localhost -t topic/to/publish/to -m "message to publish"
 
 Options:
  --ca            certificate authority file
@@ -11,28 +12,29 @@ Options:
  --message/-m    message payload
  --retain/-r     retain message [false]
  --topic/-t      topic
- --url/-u        broker url [mqtt://localhost]`);
+ --url/-u        broker url [mqtt://localhost]`,
+  );
 }
 
 async function main() {
   const args = parse(Deno.args, {
-    boolean: ['help', 'retain'],
-    string: ['ca', 'message', 'topic', 'url'],
+    boolean: ["help", "retain"],
+    string: ["ca", "message", "topic", "url"],
     alias: {
-      h: 'help',
-      L: 'log-level',
-      m: 'message',
-      q: 'qos',
-      r: 'retain',
-      t: 'topic',
-      u: 'url',
+      h: "help",
+      L: "log-level",
+      m: "message",
+      q: "qos",
+      r: "retain",
+      t: "topic",
+      u: "url",
     },
     default: {
       help: false,
-      'log-level': 'info',
+      "log-level": "info",
       qos: 0,
       retain: false,
-      url: 'mqtt://localhost',
+      url: "mqtt://localhost",
     },
   });
 
@@ -42,21 +44,21 @@ async function main() {
   }
 
   if (!args.topic) {
-    console.error('missing topic');
+    console.error("missing topic");
     return Deno.exit(1);
   }
 
   if (!args.message) {
-    console.error('missing message');
+    console.error("missing message");
     return Deno.exit(1);
   }
 
   if (args.qos && ![0, 1, 2].includes(args.qos)) {
-    console.error('qos must be 0, 1, or 2');
+    console.error("qos must be 0, 1, or 2");
     return Deno.exit(1);
   }
 
-  const levelName = args['log-level'].toUpperCase();
+  const levelName = args["log-level"].toUpperCase();
 
   const logger = await setupLogger(levelName);
 

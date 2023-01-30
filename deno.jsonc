@@ -27,9 +27,13 @@
       ]
     }
   },
+  "importMap": ".deno/import_map.json",
   "test": {
     "files": {
-      "include": ["client", "packets"]
+      "include": [
+        "client",
+        "packets"
+      ]
     }
   },
   "tasks": {

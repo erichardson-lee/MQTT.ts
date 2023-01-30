@@ -1,7 +1,7 @@
 import {
   assertEquals,
   assertThrows,
-} from "https://deno.land/std@0.70.0/testing/asserts.ts";
+} from "asserts";
 import type { PubcompPacket } from "./pubcomp.ts";
 import { decode, encode } from "./pubcomp.ts";
 

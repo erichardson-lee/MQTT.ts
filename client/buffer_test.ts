@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.70.0/testing/asserts.ts";
+import { assertEquals } from "asserts";
 import { encode as encodeConnack } from "../packets/connack.ts";
 import type { PublishPacket } from "../packets/publish.ts";
 import { encode as encodePublish } from "../packets/publish.ts";

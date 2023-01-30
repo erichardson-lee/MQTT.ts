@@ -1,6 +1,6 @@
-import { parse } from 'https://deno.land/std@0.70.0/flags/mod.ts';
-import { Client } from '../deno/mod.ts';
-import { setupLogger } from './logger.ts';
+import { parse } from "std/flags/mod.ts";
+import { Client } from "../deno/mod.ts";
+import { setupLogger } from "./logger.ts";
 
 function usage() {
   console.log(`Usage: sub.ts -h localhost -p 1883 -t "topic/#" -v
@@ -19,25 +19,25 @@ Options:
 
 async function main() {
   const args = parse(Deno.args, {
-    boolean: ['clean', 'help', 'verbose'],
-    string: ['ca', 'topic', 'url'],
+    boolean: ["clean", "help", "verbose"],
+    string: ["ca", "topic", "url"],
     alias: {
-      h: 'help',
-      i: 'client-id',
-      k: 'keep-alive',
-      L: 'log-level',
-      t: 'topic',
-      u: 'url',
-      v: 'verbose',
+      h: "help",
+      i: "client-id",
+      k: "keep-alive",
+      L: "log-level",
+      t: "topic",
+      u: "url",
+      v: "verbose",
     },
     default: {
       clean: true,
       help: false,
-      'keep-alive': 60,
-      'log-level': 'info',
+      "keep-alive": 60,
+      "log-level": "info",
       qos: 0,
-      topic: '#',
-      url: 'mqtt://localhost',
+      topic: "#",
+      url: "mqtt://localhost",
       verbose: false,
     },
   });
@@ -47,22 +47,22 @@ async function main() {
     return Deno.exit(0);
   }
 
-  const levelName = args['log-level'].toUpperCase();
+  const levelName = args["log-level"].toUpperCase();
   const logger = await setupLogger(levelName);
 
   const client = new Client({
     url: args.url,
-    clientId: args['client-id'],
+    clientId: args["client-id"],
     clean: args.clean,
-    keepAlive: args['keep-alive'],
+    keepAlive: args["keep-alive"],
     certFile: args.ca,
     logger: logger.debug.bind(logger),
   });
 
-  const utf8Decoder = new TextDecoder('utf-8');
+  const utf8Decoder = new TextDecoder("utf-8");
 
-  client.on('message', (topic: string, message: Uint8Array) => {
-    const prefix = args.verbose ? topic + ' ' : '';
+  client.on("message", (topic: string, message: Uint8Array) => {
+    const prefix = args.verbose ? topic + " " : "";
     console.log(prefix + utf8Decoder.decode(message));
   });
 
@@ -75,9 +75,11 @@ async function main() {
   const subscriptions = await client.subscribe(topicFilters, args.qos);
 
   logger.info(
-    `received acknowledgment for subscriptions: ${subscriptions
-      .map((sub) => `"${sub.topicFilter}" (${sub.returnCode})`)
-      .join(', ')}`
+    `received acknowledgment for subscriptions: ${
+      subscriptions
+        .map((sub) => `"${sub.topicFilter}" (${sub.returnCode})`)
+        .join(", ")
+    }`,
   );
 }
 

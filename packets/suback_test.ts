@@ -1,4 +1,4 @@
-import { assertEquals } from "https://deno.land/std@0.70.0/testing/asserts.ts";
+import { assertEquals } from "asserts";
 import type { SubackPacket } from "./suback.ts";
 import { decode, encode } from "./suback.ts";
 
