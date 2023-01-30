@@ -5,28 +5,12 @@
 
 This is an implementation of the MQTT 3.1.1 protocol written in TypeScript.
 
-Original Description:
-
----
-
-It is _not_ a port of the excellent [MQTT.js](https://github.com/mqttjs/MQTT.js)
-package. I wrote it for "fun", originally using [Flow](https://flow.org/), but
-never finished and then forgot about it. When I saw there were no MQTT modules
-for Deno, I decided to convert it to TypeScript as an exercise in learning
-[Deno](https://deno.land/).
-
-Since the core of the library has no dependencies, it wasn't too difficult to
-add support for Node.js and browsers so why not?
-
 ## Quick Start
 
 ```ts
-import { Client } from "https://deno.land/x/mqtt/deno/mod.ts"; // Deno (ESM)
-// const { Client } = require('@jdiamond/mqtt'); // Node.js (CommonJS)
-// import { Client } from 'https://unpkg.com/@jdiamond/mqtt-browser'; // Browsers (ESM)
+import { Client } from "https://deno.land/x/mqtt/deno/mod.ts";
 
-const client = new Client({ url: "mqtt://test.mosquitto.org" }); // Deno and Node.js
-// const client = new Client({ url: 'ws://test.mosquitto.org:8081' }); // Browsers
+const client = new Client({ url: "mqtt://test.mosquitto.org" }); /
 
 await client.connect();
 
@@ -41,16 +25,9 @@ await client.publish("my/topic", "my payload");
 await client.disconnect();
 ```
 
-See the [API documentation](docs/api.md) for more details.
+## Examples
 
-## Deno
-
-The "raw" TypeScript files are import'able by Deno.
-
-The Deno `Client` uses `Deno.connect` to create TCP connections so `--allow-net`
-is required when running code using this module.
-
-Look in [examples/deno](examples/deno) to see examples of using the client.
+Look in [examples/](examples/) to see examples of using the client.
 
 There are some CLI tools in [tools](tools) that are similar to mosquitto_pub and
 mosquitto_sub.
@@ -66,33 +43,6 @@ To publish:
 ```bash
 deno run --allow-net tools/pub.ts -u mqtt://test.mosquitto.org -t "MQTT.ts/test/topic" -m "hello"
 ```
-
-## Node.js
-
-The Node.js `Client` uses the `net` module to create TCP connections.
-
-This build is published to npm as
-[@jdiamond/mqtt](https://www.npmjs.com/package/@jdiamond/mqtt) and can be
-imported like any normal npm package.
-
-Examples in [examples/node](examples/node).
-
-## Browsers
-
-The browser `Client` uses a `WebSocket` object to connect to a broker that
-supports MQTT over WebSockets.
-
-This build is published to npm as
-[@jdiamond/mqtt-browser](https://www.npmjs.com/package/@jdiamond/mqtt-browser)
-and available via unpkg.com here:
-
-https://unpkg.com/@jdiamond/mqtt-browser
-
-The UMD build for older browsers is available here:
-
-https://unpkg.com/browse/@jdiamond/mqtt-browser/index.min.js
-
-Example in [examples/browser](examples/browser).
 
 ## Development
 
