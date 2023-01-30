@@ -1,33 +1,42 @@
 # MQTT.ts
 
-This repo is a fork of [JDiamond/MQTT.ts](https://github.com/jdiamond/MQTT.ts)
-as it is no longer maintained.
+> This repo is a fork of [JDiamond/MQTT.ts](https://github.com/jdiamond/MQTT.ts)
+> as it is no longer maintained.
 
 This is an implementation of the MQTT 3.1.1 protocol written in TypeScript.
 
-It is _not_ a port of the excellent [MQTT.js](https://github.com/mqttjs/MQTT.js) package. I wrote it for "fun", originally using [Flow](https://flow.org/), but never finished and then forgot about it. When I saw there were no MQTT modules for Deno, I decided to convert it to TypeScript as an exercise in learning [Deno](https://deno.land/).
+Original Description:
 
-Since the core of the library has no dependencies, it wasn't too difficult to add support for Node.js and browsers so why not?
+---
+
+It is _not_ a port of the excellent [MQTT.js](https://github.com/mqttjs/MQTT.js)
+package. I wrote it for "fun", originally using [Flow](https://flow.org/), but
+never finished and then forgot about it. When I saw there were no MQTT modules
+for Deno, I decided to convert it to TypeScript as an exercise in learning
+[Deno](https://deno.land/).
+
+Since the core of the library has no dependencies, it wasn't too difficult to
+add support for Node.js and browsers so why not?
 
 ## Quick Start
 
-```
-import { Client } from 'https://deno.land/x/mqtt/deno/mod.ts'; // Deno (ESM)
+```ts
+import { Client } from "https://deno.land/x/mqtt/deno/mod.ts"; // Deno (ESM)
 // const { Client } = require('@jdiamond/mqtt'); // Node.js (CommonJS)
 // import { Client } from 'https://unpkg.com/@jdiamond/mqtt-browser'; // Browsers (ESM)
 
-const client = new Client({ url: 'mqtt://test.mosquitto.org' }); // Deno and Node.js
+const client = new Client({ url: "mqtt://test.mosquitto.org" }); // Deno and Node.js
 // const client = new Client({ url: 'ws://test.mosquitto.org:8081' }); // Browsers
 
 await client.connect();
 
-await client.subscribe('incoming/#');
+await client.subscribe("incoming/#");
 
-client.on('message', (topic, payload) => {
+client.on("message", (topic, payload) => {
   console.log(topic, payload);
 });
 
-await client.publish('my/topic', 'my payload');
+await client.publish("my/topic", "my payload");
 
 await client.disconnect();
 ```
@@ -38,21 +47,23 @@ See the [API documentation](docs/api.md) for more details.
 
 The "raw" TypeScript files are import'able by Deno.
 
-The Deno `Client` uses `Deno.connect` to create TCP connections so `--allow-net` is required when running code using this module.
+The Deno `Client` uses `Deno.connect` to create TCP connections so `--allow-net`
+is required when running code using this module.
 
 Look in [examples/deno](examples/deno) to see examples of using the client.
 
-There are some CLI tools in [tools](tools) that are similar to mosquitto_pub and mosquitto_sub.
+There are some CLI tools in [tools](tools) that are similar to mosquitto_pub and
+mosquitto_sub.
 
 To subscribe:
 
-```
+```bash
 deno run --allow-net tools/sub.ts -u mqtt://test.mosquitto.org -t "MQTT.ts/test/topic" -v
 ```
 
 To publish:
 
-```
+```bash
 deno run --allow-net tools/pub.ts -u mqtt://test.mosquitto.org -t "MQTT.ts/test/topic" -m "hello"
 ```
 
@@ -60,15 +71,20 @@ deno run --allow-net tools/pub.ts -u mqtt://test.mosquitto.org -t "MQTT.ts/test/
 
 The Node.js `Client` uses the `net` module to create TCP connections.
 
-This build is published to npm as [@jdiamond/mqtt](https://www.npmjs.com/package/@jdiamond/mqtt) and can be imported like any normal npm package.
+This build is published to npm as
+[@jdiamond/mqtt](https://www.npmjs.com/package/@jdiamond/mqtt) and can be
+imported like any normal npm package.
 
 Examples in [examples/node](examples/node).
 
 ## Browsers
 
-The browser `Client` uses a `WebSocket` object to connect to a broker that supports MQTT over WebSockets.
+The browser `Client` uses a `WebSocket` object to connect to a broker that
+supports MQTT over WebSockets.
 
-This build is published to npm as [@jdiamond/mqtt-browser](https://www.npmjs.com/package/@jdiamond/mqtt-browser) and available via unpkg.com here:
+This build is published to npm as
+[@jdiamond/mqtt-browser](https://www.npmjs.com/package/@jdiamond/mqtt-browser)
+and available via unpkg.com here:
 
 https://unpkg.com/@jdiamond/mqtt-browser
 
@@ -80,11 +96,12 @@ Example in [examples/browser](examples/browser).
 
 ## Development
 
-First started working with Deno 1.0.0, but I only test with recent versions (most recently 1.24.1). Maybe I should set up some GitHub actions?
+First started working with Deno 1.0.0, but I only test with recent versions
+(most recently 1.24.1). Maybe I should set up some GitHub actions?
 
 To lint, check types, and run tests:
 
-```
+```bash
 deno lint
 deno task tsc
 deno test
@@ -95,30 +112,31 @@ deno task check
 
 To run a local broker on macOS:
 
-```
+```bash
 brew install mosquitto
 /usr/local/sbin/mosquitto -c mosquitto-mac.conf
 ```
 
 To run a local broker on Ubuntu in WSL2:
 
-```
+```bash
 sudo apt-add-repository ppa:mosquitto-dev/mosquitto-ppa
 sudo apt update
 sudo apt install mosquitto
 mosquitto -c mosquitto-wsl2-ubuntu.conf
 ```
 
-To test publishing and subscribing to your local broker, run these commands in separate shells:
+To test publishing and subscribing to your local broker, run these commands in
+separate shells:
 
-```
+```bash
 deno run --allow-net tools/sub.ts -t "foo/#" -v
 deno run --allow-net tools/pub.ts -t "foo/bar" -m "baz"
 ```
 
 To make a release:
 
-```
+```bash
 deno task check
 
 cd browser
@@ -141,9 +159,9 @@ git push --tags
 
 ## Protocol Links
 
-- 5.0: https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html
-- 3.1.1: https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html
-- 3.1: https://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html
+- [5.0](https://docs.oasis-open.org/mqtt/mqtt/v5.0/mqtt-v5.0.html)
+- [3.1.1](https://docs.oasis-open.org/mqtt/mqtt/v3.1.1/mqtt-v3.1.1.html)
+- [3.1](https://public.dhe.ibm.com/software/dw/webservices/ws-mqtt/mqtt-v3r1.html)
 
 ## Roadmap to 1.0
 
