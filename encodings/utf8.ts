@@ -1,4 +1,4 @@
-import { DecodedValue, EncodedValue } from "encoding/_types.ts";
+import { DecodedValue, EncodedValue, EncodingPair } from "encoding/_types.ts";
 import { decodeBinaryValue, encodeBinaryValue } from "encoding/binary.ts";
 
 const encoder = new TextEncoder();
@@ -28,3 +28,8 @@ export function decodeUTF8String(
     value: decoder.decode(value),
   };
 }
+
+export const Utf8String: EncodingPair<string> = {
+  decode: decodeUTF8String,
+  encode: encodeUTF8String,
+};

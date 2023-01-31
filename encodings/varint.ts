@@ -1,4 +1,4 @@
-import { DecodedValue, EncodedValue } from "encoding/_types.ts";
+import { DecodedValue, EncodedValue, EncodingPair } from "encoding/_types.ts";
 
 export function encodeVarInt(val: number): EncodedValue {
   if (val < 0) throw new SyntaxError("Value Out Of Range", { cause: val });
@@ -74,3 +74,8 @@ export function decodeVarInt(
 
   throw new Error("Malformed Variable Byte Integer");
 }
+
+export const VarInt: EncodingPair<number> = {
+  decode: decodeVarInt,
+  encode: encodeVarInt,
+};
