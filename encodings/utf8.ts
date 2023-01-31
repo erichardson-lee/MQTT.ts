@@ -12,9 +12,9 @@ export function encodeUTF8String(str: string): EncodedValue {
 
 export function decodeUTF8String(
   buffer: Uint8Array,
-  startIndex: number,
+  startOffset: number,
 ): DecodedValue<string> {
-  const { length, value, endOffset } = decodeBinaryValue(buffer, startIndex);
+  const { length, value, endOffset } = decodeBinaryValue(buffer, startOffset);
 
   return {
     length,
