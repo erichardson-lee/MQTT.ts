@@ -110,12 +110,12 @@ export function decode(
     throw new Error(`packet type ${id} cannot be decoded`);
   }
 
-  const { length: remainingLength, bytesUsedToEncodeLength } = decodeLength(
+  const { value: remainingLength, endOffset } = decodeLength(
     buffer,
     1,
   );
 
-  const packetLength = 1 + bytesUsedToEncodeLength + remainingLength;
+  const packetLength = 1 + endOffset + remainingLength;
 
   if (buffer.length < packetLength) {
     return null;
@@ -123,7 +123,7 @@ export function decode(
 
   const packet = decoder(
     buffer,
-    1 + bytesUsedToEncodeLength,
+    1 + endOffset,
     remainingLength,
     utf8Decoder,
   );

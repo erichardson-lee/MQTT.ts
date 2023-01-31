@@ -28,7 +28,7 @@ import { encode as pubrecEncoder } from "../packets/pubrec.ts";
 import { encode as pubrelEncoder } from "../packets/pubrel.ts";
 import { encode as subscribeEncoder } from "../packets/subscribe.ts";
 import { encode as unsubscribeEncoder } from "../packets/unsubscribe.ts";
-import type { UTF8Decoder, UTF8Encoder } from "../packets/utf8.ts";
+import type { UTF8Decoder, UTF8Encoder } from "encoding/utf8.ts";
 
 type URLFactory = URL | string | (() => URL | string | void);
 type ClientIdFactory = string | (() => string);

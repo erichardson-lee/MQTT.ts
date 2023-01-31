@@ -14,35 +14,35 @@ Deno.test("encodeLength", function encodeLength() {
 
 Deno.test("decodeLength", function decodeLength() {
   assertEquals(decode(Uint8Array.from([0x00]), 0), {
-    length: 0,
-    bytesUsedToEncodeLength: 1,
+    value: 0,
+    endOffset: 1,
   });
   assertEquals(decode(Uint8Array.from([0x7f]), 0), {
-    length: 127,
-    bytesUsedToEncodeLength: 1,
+    value: 127,
+    endOffset: 1,
   });
   assertEquals(decode(Uint8Array.from([0x80, 0x01]), 0), {
-    length: 128,
-    bytesUsedToEncodeLength: 2,
+    value: 128,
+    endOffset: 2,
   });
   assertEquals(decode(Uint8Array.from([0xff, 0x7f]), 0), {
-    length: 16_383,
-    bytesUsedToEncodeLength: 2,
+    value: 16_383,
+    endOffset: 2,
   });
   assertEquals(decode(Uint8Array.from([0x80, 0x80, 0x01]), 0), {
-    length: 16_384,
-    bytesUsedToEncodeLength: 3,
+    value: 16_384,
+    endOffset: 3,
   });
   assertEquals(decode(Uint8Array.from([0xff, 0xff, 0x7f]), 0), {
-    length: 2_097_151,
-    bytesUsedToEncodeLength: 3,
+    value: 2_097_151,
+    endOffset: 3,
   });
   assertEquals(decode(Uint8Array.from([0x80, 0x80, 0x80, 0x01]), 0), {
-    length: 2_097_152,
-    bytesUsedToEncodeLength: 4,
+    value: 2_097_152,
+    endOffset: 4,
   });
   assertEquals(decode(Uint8Array.from([0xff, 0xff, 0xff, 0x7f]), 0), {
-    length: 268_435_455,
-    bytesUsedToEncodeLength: 4,
+    value: 268_435_455,
+    endOffset: 4,
   });
 });
