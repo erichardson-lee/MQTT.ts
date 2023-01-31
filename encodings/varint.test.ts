@@ -15,34 +15,42 @@ Deno.test("encodeLength", function encodeLength() {
 Deno.test("decodeLength", function decodeLength() {
   assertEquals(decode(Uint8Array.from([0x00]), 0), {
     value: 0,
+    length: 1,
     endOffset: 1,
   });
   assertEquals(decode(Uint8Array.from([0x7f]), 0), {
     value: 127,
+    length: 1,
     endOffset: 1,
   });
   assertEquals(decode(Uint8Array.from([0x80, 0x01]), 0), {
     value: 128,
+    length: 2,
     endOffset: 2,
   });
   assertEquals(decode(Uint8Array.from([0xff, 0x7f]), 0), {
     value: 16_383,
+    length: 2,
     endOffset: 2,
   });
   assertEquals(decode(Uint8Array.from([0x80, 0x80, 0x01]), 0), {
     value: 16_384,
+    length: 3,
     endOffset: 3,
   });
   assertEquals(decode(Uint8Array.from([0xff, 0xff, 0x7f]), 0), {
     value: 2_097_151,
+    length: 3,
     endOffset: 3,
   });
   assertEquals(decode(Uint8Array.from([0x80, 0x80, 0x80, 0x01]), 0), {
     value: 2_097_152,
+    length: 4,
     endOffset: 4,
   });
   assertEquals(decode(Uint8Array.from([0xff, 0xff, 0xff, 0x7f]), 0), {
     value: 268_435_455,
+    length: 4,
     endOffset: 4,
   });
 });

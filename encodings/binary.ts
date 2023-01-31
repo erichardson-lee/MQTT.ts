@@ -6,7 +6,7 @@ export function encodeBinaryValue(bytes: Uint8Array): EncodedValue {
 
 export function decodeBinaryValue(
   buffer: Uint8Array,
-  startOffset: number,
+  startOffset = 0,
 ): DecodedValue<Uint8Array> {
   const length = (buffer[startOffset] << 8) + buffer[startOffset + 1];
   const bytes = buffer.subarray(startOffset + 2, startOffset + 2 + length);
