@@ -1,5 +1,5 @@
 import { decodeBinaryValue, encodeBinaryValue } from "encoding/binary.ts";
-import { encodeLength } from "encoding/varint.ts";
+import { encodeVarInt } from "encoding/varint.ts";
 import { PublishPayload } from "./publish.ts";
 import { decodeUTF8String, encodeUTF8String } from "encoding/utf8.ts";
 
@@ -76,7 +76,7 @@ export function encode(packet: ConnectPacket) {
 
   const fixedHeader = [
     (packetType << 4) | flags,
-    ...encodeLength(variableHeader.length + payload.length),
+    ...encodeVarInt(variableHeader.length + payload.length),
   ];
 
   return Uint8Array.from([...fixedHeader, ...variableHeader, ...payload]);

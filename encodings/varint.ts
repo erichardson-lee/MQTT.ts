@@ -1,6 +1,6 @@
 import { DecodedValue, EncodedValue } from "encoding/_types.ts";
 
-export function encodeLength(val: number): EncodedValue {
+export function encodeVarInt(val: number): EncodedValue {
   if (val < 0) throw new SyntaxError("Value Out Of Range", { cause: val });
 
   if (val < 128) return [val];
@@ -21,9 +21,9 @@ export function encodeLength(val: number): EncodedValue {
   throw new SyntaxError("Value Out Of Range", { cause: val });
 }
 
-export function decodeLength(
+export function decodeVarInt(
   buffer: Uint8Array,
-  startOffset: number,
+  startOffset = 0,
 ): DecodedValue<number> {
   const b1 = buffer[startOffset];
 

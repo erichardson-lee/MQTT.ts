@@ -1,7 +1,7 @@
 import { assertEquals } from "asserts";
-import { decodeLength as decode, encodeLength as encode } from "./varint.ts";
+import { decodeVarInt as decode, encodeVarInt as encode } from "./varint.ts";
 
-Deno.test("encodeLength", function encodeLength() {
+Deno.test("encodeVarInt", function encodeVarInt() {
   assertEquals(encode(0), [0x00]);
   assertEquals(encode(127), [0x7f]);
   assertEquals(encode(128), [0x80, 0x01]);
@@ -12,7 +12,7 @@ Deno.test("encodeLength", function encodeLength() {
   assertEquals(encode(268_435_455), [0xff, 0xff, 0xff, 0x7f]);
 });
 
-Deno.test("decodeLength", function decodeLength() {
+Deno.test("decodeVarInt", function decodeVarInt() {
   assertEquals(decode(Uint8Array.from([0x00]), 0), {
     value: 0,
     length: 1,

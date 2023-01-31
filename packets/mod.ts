@@ -4,7 +4,7 @@ import type { ConnectPacket } from "./connect.ts";
 import { decode as connectDecoder } from "./connect.ts";
 import type { DisconnectPacket } from "./disconnect.ts";
 import { decode as disconnectDecoder } from "./disconnect.ts";
-import { decodeLength } from "encoding/varint.ts";
+import { decodeVarInt } from "encoding/varint.ts";
 import type { PingreqPacket } from "./pingreq.ts";
 import { decode as pingreqDecoder } from "./pingreq.ts";
 import type { PingresPacket } from "./pingres.ts";
@@ -106,7 +106,7 @@ export function decode(
     throw new Error(`packet type ${id} cannot be decoded`);
   }
 
-  const { value: remainingLength, endOffset } = decodeLength(
+  const { value: remainingLength, endOffset } = decodeVarInt(
     buffer,
     1,
   );

@@ -1,5 +1,5 @@
 import { QoS } from "../lib/mod.ts";
-import { encodeLength } from "encoding/varint.ts";
+import { encodeVarInt } from "encoding/varint.ts";
 import { decodeUTF8String, encodeUTF8String } from "encoding/utf8.ts";
 
 export interface SubscribePacket {
@@ -27,7 +27,7 @@ export function encode(packet: SubscribePacket) {
 
   const fixedHeader = [
     (packetType << 4) | flags,
-    ...encodeLength(variableHeader.length + payload.length),
+    ...encodeVarInt(variableHeader.length + payload.length),
   ];
 
   return Uint8Array.from([...fixedHeader, ...variableHeader, ...payload]);
