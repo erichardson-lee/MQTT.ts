@@ -7,9 +7,10 @@ To develop, you need both [Deno](https://deno.land/) v1.24.0+ and
 
 ## Testing
 
-To lint, check types, and run tests:
+To format, lint, check types, and run tests:
 
 ```bash
+deno fmt
 deno lint
 deno check mod.ts
 deno test
