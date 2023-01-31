@@ -61,11 +61,11 @@ Deno.test("client can receive one byte at a time", async () => {
   );
 
   // Receive all but the last byte:
-  client.testReceiveBytes(bytes.slice(0, bytes.length - 1));
+  client.testReceiveBytes(bytes.subarray(0, bytes.length - 1));
   // No new packets have been received:
   assertEquals(client.receivedPackets.length, 2);
   // Send the last byte:
-  client.testReceiveBytes(bytes.slice(bytes.length - 1));
+  client.testReceiveBytes(bytes.subarray(bytes.length - 1));
   // A new packet has been received:
   assertEquals(client.receivedPackets.length, 3);
   assertEquals(client.receivedPackets[2].type, "publish");

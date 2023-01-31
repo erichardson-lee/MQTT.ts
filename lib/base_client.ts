@@ -756,7 +756,7 @@ export abstract class Client {
       this.packetReceived(packet);
 
       if (packet.length < buffer.length) {
-        buffer = buffer.slice(packet.length);
+        buffer = buffer.subarray(packet.length);
       } else {
         buffer = null;
       }

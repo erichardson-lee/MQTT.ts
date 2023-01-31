@@ -83,7 +83,10 @@ export function decode(
     payloadStart += 2;
   }
 
-  const payload = buffer.slice(payloadStart, remainingStart + remainingLength);
+  const payload = buffer.subarray(
+    payloadStart,
+    remainingStart + remainingLength,
+  );
 
   return {
     type: "publish",

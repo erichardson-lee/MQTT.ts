@@ -111,7 +111,7 @@ export class Client extends BaseClient {
           break;
         }
 
-        this.bytesReceived(buffer.slice(0, bytesRead));
+        this.bytesReceived(buffer.subarray(0, bytesRead));
       }
     })().then(
       () => {},

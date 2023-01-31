@@ -76,7 +76,7 @@ export class TestClient extends BaseClient {
   ) {
     if (options.trickle) {
       for (let i = 0; i < bytes.length; i++) {
-        this.bytesReceived(bytes.slice(i, i + 1));
+        this.bytesReceived(bytes.subarray(i, i + 1));
       }
     } else {
       this.bytesReceived(bytes);

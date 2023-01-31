@@ -10,7 +10,7 @@ export function decodeBinaryValue(
   startIndex: number,
 ) {
   const length = (buffer[startIndex] << 8) + buffer[startIndex + 1];
-  const bytes = buffer.slice(startIndex + 2, startIndex + 2 + length);
+  const bytes = buffer.subarray(startIndex + 2, startIndex + 2 + length);
 
   return {
     length: length + 2,
