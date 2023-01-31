@@ -10,7 +10,7 @@ This is an implementation of the MQTT 3.1.1 protocol written in TypeScript.
 ```ts
 import { Client } from "https://deno.land/x/mqtt/deno/mod.ts";
 
-const client = new Client({ url: "mqtt://test.mosquitto.org" }); /
+const client = new Client({ url: "mqtt://test.mosquitto.org" });
 
 await client.connect();
 
