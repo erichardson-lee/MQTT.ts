@@ -1,5 +1,5 @@
 import { assertEquals } from "asserts";
-import { decodeLength as decode, encodeLength as encode } from "./length.ts";
+import { decodeLength as decode, encodeLength as encode } from "./varint.ts";
 
 Deno.test("encodeLength", function encodeLength() {
   assertEquals(encode(0), [0x00]);

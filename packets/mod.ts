@@ -4,7 +4,7 @@ import type { ConnectPacket } from "./connect.ts";
 import { decode as connectDecoder } from "./connect.ts";
 import type { DisconnectPacket } from "./disconnect.ts";
 import { decode as disconnectDecoder } from "./disconnect.ts";
-import { decodeLength } from "./length.ts";
+import { decodeLength } from "encoding/varint.ts";
 import type { PingreqPacket } from "./pingreq.ts";
 import { decode as pingreqDecoder } from "./pingreq.ts";
 import type { PingresPacket } from "./pingres.ts";
@@ -27,7 +27,7 @@ import type { UnsubackPacket } from "./unsuback.ts";
 import { decode as unsubackDecoder } from "./unsuback.ts";
 import type { UnsubscribePacket } from "./unsubscribe.ts";
 import { decode as unsubscribeDecoder } from "./unsubscribe.ts";
-import type { UTF8Decoder, UTF8Encoder } from "./utf8.ts";
+import type { UTF8Decoder, UTF8Encoder } from "encoding/utf8.ts";
 
 export type AnyPacket =
   | ConnectPacket

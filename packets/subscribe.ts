@@ -1,11 +1,11 @@
 import { QoS } from "../lib/mod.ts";
-import { encodeLength } from "./length.ts";
+import { encodeLength } from "encoding/varint.ts";
 import {
   decodeUTF8String,
   encodeUTF8String,
   UTF8Decoder,
   UTF8Encoder,
-} from "./utf8.ts";
+} from "encoding/utf8.ts";
 
 export interface SubscribePacket {
   type: "subscribe";

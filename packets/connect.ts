@@ -1,12 +1,12 @@
-import { decodeBinaryValue, encodeBinaryValue } from "./binary.ts";
-import { encodeLength } from "./length.ts";
+import { decodeBinaryValue, encodeBinaryValue } from "encoding/binary.ts";
+import { encodeLength } from "encoding/varint.ts";
 import { PublishPayload } from "./publish.ts";
 import {
   decodeUTF8String,
   encodeUTF8String,
   UTF8Decoder,
   UTF8Encoder,
-} from "./utf8.ts";
+} from "encoding/utf8.ts";
 
 export interface ConnectPacket {
   type: "connect";
