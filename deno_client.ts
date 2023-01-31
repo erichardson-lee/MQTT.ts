@@ -40,7 +40,16 @@ export class Client extends BaseClient {
   }
 
   protected async open(url: URL) {
-    // TODO: check for permission denied error and show a helpful message and avoid reconnect?
+    const netPermission = await Deno.permissions.request({
+      name: "net",
+      host: url.hostname,
+    });
+
+    if (netPermission.state !== "granted") {
+      throw new Error(
+        "Permission to connect to host not granted. Please run `deno run --allow-net` or `deno run --allow-net=<hostname>`",
+      );
+    }
 
     let conn;
 
