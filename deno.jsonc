@@ -1,4 +1,5 @@
 {
   "importMap": ".deno/import_map.json",
+  "lock": ".deno/deno.lock",
   "tasks": {}
 }
