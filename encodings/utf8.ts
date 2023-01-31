@@ -1,16 +1,10 @@
-// Deno and browsers have global TextEncoder and TextDecoder classes, but
-// Node.js does not so we have to use an abstraction for working with UTF8.
-import { decodeBinaryValue, encodeBinaryValue } from "./binary.ts";
+import { DecodedValue, EncodedValue } from "encoding/_types.ts";
+import { decodeBinaryValue, encodeBinaryValue } from "encoding/binary.ts";
 
-export interface UTF8Encoder {
-  encode: (str?: string | undefined) => Uint8Array;
-}
+const encoder = new TextEncoder();
+const decoder = new TextDecoder();
 
-export interface UTF8Decoder {
-  decode: (bytes: Uint8Array) => string;
-}
-
-export function encodeUTF8String(str: string, encoder: UTF8Encoder) {
+export function encodeUTF8String(str: string): EncodedValue {
   const bytes = encoder.encode(str);
 
   return encodeBinaryValue(bytes);
@@ -19,13 +13,12 @@ export function encodeUTF8String(str: string, encoder: UTF8Encoder) {
 export function decodeUTF8String(
   buffer: Uint8Array,
   startIndex: number,
-  utf8Decoder: UTF8Decoder,
-) {
-  const { length, value } = decodeBinaryValue(buffer, startIndex);
-  const sValue = utf8Decoder.decode(value);
+): DecodedValue<string> {
+  const { length, value, endOffset } = decodeBinaryValue(buffer, startIndex);
 
   return {
     length,
-    value: sValue,
+    endOffset,
+    value: decoder.decode(value),
   };
 }

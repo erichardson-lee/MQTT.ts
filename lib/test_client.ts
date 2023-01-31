@@ -8,9 +8,6 @@ type TestClientOptions = BaseClientOptions & {
   openRejects?: number;
 };
 
-const utf8Encoder = new TextEncoder();
-const utf8Decoder = new TextDecoder();
-
 export class TestClient extends BaseClient {
   declare options: TestClientOptions;
   sentPackets: AnyPacket[] = [];
@@ -23,14 +20,6 @@ export class TestClient extends BaseClient {
       ...options,
       // logger: console.log,
     });
-  }
-
-  getUTF8Encoder() {
-    return utf8Encoder;
-  }
-
-  getUTF8Decoder() {
-    return utf8Decoder;
   }
 
   // These methods must be overridden by BaseClient subclasses:

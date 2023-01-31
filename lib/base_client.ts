@@ -28,7 +28,6 @@ import { encode as pubrecEncoder } from "../packets/pubrec.ts";
 import { encode as pubrelEncoder } from "../packets/pubrel.ts";
 import { encode as subscribeEncoder } from "../packets/subscribe.ts";
 import { encode as unsubscribeEncoder } from "../packets/unsubscribe.ts";
-import type { UTF8Decoder, UTF8Encoder } from "encoding/utf8.ts";
 
 type URLFactory = URL | string | (() => URL | string | void);
 type ClientIdFactory = string | (() => string);
@@ -262,15 +261,6 @@ export abstract class Client {
 
   protected log: (msg: string, ...args: unknown[]) => void;
 
-  // These methods are called from the base contsructor to cache the
-  // encoder and decoders on this instance.
-  protected abstract getUTF8Encoder(): UTF8Encoder;
-  protected abstract getUTF8Decoder(): UTF8Decoder;
-
-  // These are the cached encoder and decoders.
-  protected utf8Encoder: UTF8Encoder;
-  protected utf8Decoder: UTF8Decoder;
-
   protected constructor(options?: ClientOptions) {
     this.options = options || {};
     this.clientId = this.generateClientId();
@@ -284,9 +274,6 @@ export abstract class Client {
       new OutgoingMemoryStore();
 
     this.log = this.options.logger || (() => {});
-
-    this.utf8Encoder = this.getUTF8Encoder();
-    this.utf8Decoder = this.getUTF8Decoder();
   }
 
   public connect(): Promise<ConnackPacket> {
@@ -632,7 +619,7 @@ export abstract class Client {
   protected abstract close(): Promise<void>;
 
   protected decode(bytes: Uint8Array): AnyPacketWithLength | null {
-    return decode(bytes, this.utf8Decoder);
+    return decode(bytes);
   }
 
   // This gets called from connect and when reconnecting.
@@ -1270,7 +1257,7 @@ export abstract class Client {
 
     this.emit("packetsend", packet);
 
-    const bytes = encoder(packet, this.utf8Encoder);
+    const bytes = encoder(packet);
 
     this.emit("bytessent", bytes);
 

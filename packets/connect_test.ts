@@ -2,8 +2,6 @@ import { assertEquals } from "asserts";
 import type { ConnectPacket } from "./connect.ts";
 import { decode, encode } from "./connect.ts";
 
-const utf8Encoder = new TextEncoder();
-
 Deno.test(
   "encodeConnectPacketWithClientId",
   function encodeConnectPacketWithClientId() {
@@ -13,7 +11,6 @@ Deno.test(
           type: "connect",
           clientId: "id",
         },
-        utf8Encoder,
       ),
       [
         // fixedHeader
@@ -51,7 +48,6 @@ Deno.test(
           clientId: "id",
           clean: false,
         },
-        utf8Encoder,
       ),
       [
         // fixedHeader
@@ -89,7 +85,6 @@ Deno.test(
           clientId: "id",
           keepAlive: 300,
         },
-        utf8Encoder,
       ),
       [
         // fixedHeader
@@ -128,7 +123,6 @@ Deno.test(
           username: "user",
           password: "pass",
         },
-        utf8Encoder,
       ),
       [
         // fixedHeader
@@ -245,7 +239,6 @@ Deno.test(
             payload: "offline",
           },
         },
-        utf8Encoder,
       ),
       [
         // fixedHeader
@@ -355,7 +348,6 @@ Deno.test(
           qos: 1,
           retain: true,
           topic: "topic1",
-          payload: utf8Encoder.encode("offline"),
         },
         clean: true,
         keepAlive: 0,

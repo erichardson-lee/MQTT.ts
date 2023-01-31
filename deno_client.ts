@@ -9,9 +9,6 @@ export type ClientOptions = BaseClientOptions & {
 
 const DEFAULT_BUF_SIZE = 4096;
 
-const utf8Encoder = new TextEncoder();
-const utf8Decoder = new TextDecoder();
-
 export class Client extends BaseClient {
   declare options: ClientOptions;
   private conn: Deno.Conn | undefined;
@@ -19,14 +16,6 @@ export class Client extends BaseClient {
 
   constructor(options?: ClientOptions) {
     super(options);
-  }
-
-  getUTF8Encoder() {
-    return utf8Encoder;
-  }
-
-  getUTF8Decoder() {
-    return utf8Decoder;
   }
 
   protected getDefaultURL() {

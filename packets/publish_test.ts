@@ -2,8 +2,6 @@ import { assertEquals } from "asserts";
 import type { PublishPacket } from "./publish.ts";
 import { decode, encode } from "./publish.ts";
 
-const utf8Decoder = new TextDecoder();
-
 Deno.test("encodePublishPacket", function encodePublishPacket() {
   assertEquals(
     encode(
@@ -16,7 +14,6 @@ Deno.test("encodePublishPacket", function encodePublishPacket() {
         qos: 0,
         id: 0,
       },
-      new TextEncoder(),
     ),
     [
       // fixedHeader
@@ -64,7 +61,6 @@ Deno.test("decodePublishPacket", function decodePublishPacket() {
       ]),
       2,
       12,
-      utf8Decoder,
     ),
     {
       type: "publish",
@@ -115,7 +111,6 @@ Deno.test(
         ]),
         2,
         12,
-        utf8Decoder,
       ),
       {
         type: "publish",

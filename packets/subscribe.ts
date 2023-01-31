@@ -1,11 +1,6 @@
 import { QoS } from "../lib/mod.ts";
 import { encodeLength } from "encoding/varint.ts";
-import {
-  decodeUTF8String,
-  encodeUTF8String,
-  UTF8Decoder,
-  UTF8Encoder,
-} from "encoding/utf8.ts";
+import { decodeUTF8String, encodeUTF8String } from "encoding/utf8.ts";
 
 export interface SubscribePacket {
   type: "subscribe";
@@ -18,7 +13,7 @@ export type Subscription = {
   qos: QoS;
 };
 
-export function encode(packet: SubscribePacket, utf8Encoder: UTF8Encoder) {
+export function encode(packet: SubscribePacket) {
   const packetType = 8;
   const flags = 0b0010; // bit 2 must be 1 in 3.1.1
 
@@ -27,7 +22,7 @@ export function encode(packet: SubscribePacket, utf8Encoder: UTF8Encoder) {
   const payload = [];
 
   for (const sub of packet.subscriptions) {
-    payload.push(...encodeUTF8String(sub.topicFilter, utf8Encoder), sub.qos);
+    payload.push(...encodeUTF8String(sub.topicFilter), sub.qos);
   }
 
   const fixedHeader = [
@@ -42,7 +37,6 @@ export function decode(
   buffer: Uint8Array,
   remainingStart: number,
   _remainingLength: number,
-  utf8Decoder: UTF8Decoder,
 ): SubscribePacket {
   const idStart = remainingStart;
   const id = (buffer[idStart] << 8) + buffer[idStart + 1];
@@ -51,7 +45,7 @@ export function decode(
   const subscriptions: Subscription[] = [];
 
   for (let i = subscriptionsStart; i < buffer.length;) {
-    const topicFilter = decodeUTF8String(buffer, i, utf8Decoder);
+    const topicFilter = decodeUTF8String(buffer, i);
     i += topicFilter.length;
 
     const qos = buffer[i];

@@ -1,12 +1,7 @@
 import { decodeBinaryValue, encodeBinaryValue } from "encoding/binary.ts";
 import { encodeLength } from "encoding/varint.ts";
 import { PublishPayload } from "./publish.ts";
-import {
-  decodeUTF8String,
-  encodeUTF8String,
-  UTF8Decoder,
-  UTF8Encoder,
-} from "encoding/utf8.ts";
+import { decodeUTF8String, encodeUTF8String } from "encoding/utf8.ts";
 
 export interface ConnectPacket {
   type: "connect";
@@ -25,11 +20,11 @@ export interface ConnectPacket {
   keepAlive?: number;
 }
 
-export function encode(packet: ConnectPacket, utf8Encoder: UTF8Encoder) {
+export function encode(packet: ConnectPacket) {
   const packetType = 1;
   const flags = 0;
 
-  const protocolName = encodeUTF8String("MQTT", utf8Encoder);
+  const protocolName = encodeUTF8String("MQTT");
   const protocolLevel = 4;
 
   const usernameFlag = !!packet.username;
@@ -57,7 +52,7 @@ export function encode(packet: ConnectPacket, utf8Encoder: UTF8Encoder) {
     keepAlive & 0xff,
   ];
 
-  const encodeStr = (str: string) => encodeUTF8String(str, utf8Encoder);
+  const encodeStr = (str: string) => encodeUTF8String(str);
 
   const payload = [...encodeStr(packet.clientId)];
 
@@ -91,11 +86,10 @@ export function decode(
   buffer: Uint8Array,
   remainingStart: number,
   _remainingLength: number,
-  utf8Decoder: UTF8Decoder,
 ): ConnectPacket {
   let readOffset = remainingStart;
 
-  const protocolName = decodeUTF8String(buffer, readOffset, utf8Decoder);
+  const protocolName = decodeUTF8String(buffer, readOffset);
   readOffset += protocolName.length;
 
   const protocolLevel = buffer[readOffset];
@@ -117,7 +111,7 @@ export function decode(
   const keepAlive = (buffer[readOffset] << 8) + buffer[readOffset + 1];
   readOffset += 2;
 
-  const clientId = decodeUTF8String(buffer, readOffset, utf8Decoder);
+  const clientId = decodeUTF8String(buffer, readOffset);
   readOffset += clientId.length;
 
   let willTopic: string | undefined = undefined;
@@ -126,7 +120,7 @@ export function decode(
   let password: string | undefined = undefined;
 
   if (willFlag) {
-    const topic = decodeUTF8String(buffer, readOffset, utf8Decoder);
+    const topic = decodeUTF8String(buffer, readOffset);
     willTopic = topic.value;
     readOffset += topic.length;
 
@@ -136,13 +130,13 @@ export function decode(
   }
 
   if (usernameFlag) {
-    const res = decodeUTF8String(buffer, readOffset, utf8Decoder);
+    const res = decodeUTF8String(buffer, readOffset);
     readOffset += res.length;
     username = res.value;
   }
 
   if (passwordFlag) {
-    const res = decodeUTF8String(buffer, readOffset, utf8Decoder);
+    const res = decodeUTF8String(buffer, readOffset);
     readOffset += res.length;
     password = res.value;
   }

@@ -1,10 +1,5 @@
 import { encodeLength } from "encoding/varint.ts";
-import {
-  decodeUTF8String,
-  encodeUTF8String,
-  UTF8Decoder,
-  UTF8Encoder,
-} from "encoding/utf8.ts";
+import { decodeUTF8String, encodeUTF8String } from "encoding/utf8.ts";
 
 export interface UnsubscribePacket {
   type: "unsubscribe";
@@ -12,7 +7,7 @@ export interface UnsubscribePacket {
   topicFilters: string[];
 }
 
-export function encode(packet: UnsubscribePacket, utf8Encoder: UTF8Encoder) {
+export function encode(packet: UnsubscribePacket) {
   const packetType = 0b1010;
   const flags = 0b0010;
 
@@ -21,7 +16,7 @@ export function encode(packet: UnsubscribePacket, utf8Encoder: UTF8Encoder) {
   const payload = [];
 
   for (const topic of packet.topicFilters) {
-    payload.push(...encodeUTF8String(topic, utf8Encoder));
+    payload.push(...encodeUTF8String(topic));
   }
 
   const fixedHeader = [
@@ -36,7 +31,6 @@ export function decode(
   buffer: Uint8Array,
   remainingStart: number,
   _remainingLength: number,
-  utf8Decoder: UTF8Decoder,
 ): UnsubscribePacket {
   const idStart = remainingStart;
   const id = (buffer[idStart] << 8) + buffer[idStart + 1];
@@ -45,7 +39,7 @@ export function decode(
   const topicFilters: string[] = [];
 
   for (let i = topicFiltersStart; i < buffer.length;) {
-    const topicFilter = decodeUTF8String(buffer, i, utf8Decoder);
+    const topicFilter = decodeUTF8String(buffer, i);
     i += topicFilter.length;
 
     topicFilters.push(topicFilter.value);

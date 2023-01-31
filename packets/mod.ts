@@ -27,7 +27,6 @@ import type { UnsubackPacket } from "./unsuback.ts";
 import { decode as unsubackDecoder } from "./unsuback.ts";
 import type { UnsubscribePacket } from "./unsubscribe.ts";
 import { decode as unsubscribeDecoder } from "./unsubscribe.ts";
-import type { UTF8Decoder, UTF8Encoder } from "encoding/utf8.ts";
 
 export type AnyPacket =
   | ConnectPacket
@@ -66,14 +65,12 @@ export type {
 
 export type PacketEncoder<T> = (
   packet: T,
-  utf8Encoder: UTF8Encoder,
 ) => Uint8Array;
 
 export type PacketDecoder<T> = (
   packet: Uint8Array,
   remainingStart: number,
   remainingLength: number,
-  utf8Decoder: UTF8Decoder,
 ) => T;
 
 const packetDecoders = [
@@ -96,7 +93,6 @@ const packetDecoders = [
 
 export function decode(
   buffer: Uint8Array,
-  utf8Decoder: UTF8Decoder,
 ): AnyPacketWithLength | null {
   if (buffer.length < 2) {
     return null;
@@ -125,7 +121,6 @@ export function decode(
     buffer,
     1 + endOffset,
     remainingLength,
-    utf8Decoder,
   );
 
   if (!packet) {
