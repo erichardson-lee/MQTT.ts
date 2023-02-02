@@ -1,4 +1,4 @@
-import { assertEquals } from "asserts";
+import { assertEquals } from "https://deno.land/std@0.70.0/testing/asserts.ts";
 import { TestClient } from "../lib/test_client.ts";
 import type { SubscribePacket, UnsubscribePacket } from "../packets/mod.ts";
 import { encode as encodeConnack } from "../packets/connack.ts";

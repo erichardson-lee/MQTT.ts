@@ -1,8 +1,8 @@
 import {
   decodeBinaryValue as decode,
   encodeBinaryValue as encode,
-} from "encoding/binary.ts";
-import { assertEquals } from "asserts";
+} from "./binary.ts";
+import { assertEquals } from "https://deno.land/std@0.70.0/testing/asserts.ts";
 
 Deno.test(function EncodeSmall() {
   const data = new Uint8Array([0xDE, 0xAD, 0xBE, 0xEF]);

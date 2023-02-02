@@ -1,4 +1,4 @@
-import { assertEquals } from "asserts";
+import { assertEquals } from "https://deno.land/std@0.70.0/testing/asserts.ts";
 import { decodeVarInt as decode, encodeVarInt as encode } from "./varint.ts";
 
 Deno.test("encodeVarInt", function encodeVarInt() {

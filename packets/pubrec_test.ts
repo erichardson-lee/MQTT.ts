@@ -1,4 +1,4 @@
-import { assertEquals, assertThrows } from "asserts";
+import { assertEquals, assertThrows } from "https://deno.land/std@0.70.0/testing/asserts.ts";
 import type { PubrecPacket } from "./pubrec.ts";
 import { decode, encode } from "./pubrec.ts";
 

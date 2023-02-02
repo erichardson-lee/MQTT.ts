@@ -1,8 +1,8 @@
-import { assertEquals, assertThrows } from "asserts";
+import { assertEquals, assertThrows } from "https://deno.land/std@0.70.0/testing/asserts.ts";
 import {
   decodeUTF8String as decode,
   encodeUTF8String as encode,
-} from "encoding/utf8.ts";
+} from "../encodings/utf8.ts";
 
 const SimpleButInHex = [
   0x53, // S

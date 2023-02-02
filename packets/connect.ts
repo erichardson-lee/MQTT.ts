@@ -1,7 +1,7 @@
-import { decodeBinaryValue, encodeBinaryValue } from "encoding/binary.ts";
-import { encodeVarInt } from "encoding/varint.ts";
+import { decodeBinaryValue, encodeBinaryValue } from "../encodings/binary.ts";
+import { encodeVarInt } from "../encodings/varint.ts";
 import { PublishPayload } from "./publish.ts";
-import { decodeUTF8String, encodeUTF8String } from "encoding/utf8.ts";
+import { decodeUTF8String, encodeUTF8String } from "../encodings/utf8.ts";
 
 export interface ConnectPacket {
   type: "connect";

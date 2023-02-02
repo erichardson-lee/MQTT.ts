@@ -1,5 +1,5 @@
-import { encodeVarInt } from "encoding/varint.ts";
-import { decodeUTF8String, encodeUTF8String } from "encoding/utf8.ts";
+import { encodeVarInt } from "../encodings/varint.ts";
+import { decodeUTF8String, encodeUTF8String } from "../encodings/utf8.ts";
 
 export interface PublishPacket {
   type: "publish";

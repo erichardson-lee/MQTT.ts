@@ -1,4 +1,4 @@
-import { DecodedValue, EncodedValue, EncodingPair } from "encoding/_types.ts";
+import { DecodedValue, EncodedValue, EncodingPair } from "./_types.ts";
 
 export function encodeVarInt(val: number): EncodedValue {
   if (val < 0) throw new SyntaxError("Value Out Of Range", { cause: val });
@@ -14,7 +14,7 @@ export function encodeVarInt(val: number): EncodedValue {
 
   if (val < 2_097_152) return [b1 | 0x80, b2 | 0x80, b3];
 
-  const b4 = (val >> 21);
+  const b4 = val >> 21;
 
   if (val < 268_435_456) return [b1 | 0x80, b2 | 0x80, b3 | 0x80, b4];
 

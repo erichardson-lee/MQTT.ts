@@ -1,4 +1,4 @@
-import { assertEquals, assertThrows } from "asserts";
+import { assertEquals, assertThrows } from "https://deno.land/std@0.70.0/testing/asserts.ts";
 import type { PubackPacket } from "./puback.ts";
 import { decode, encode } from "./puback.ts";
 

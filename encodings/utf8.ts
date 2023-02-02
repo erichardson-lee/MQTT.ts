@@ -1,5 +1,5 @@
-import { DecodedValue, EncodedValue, EncodingPair } from "encoding/_types.ts";
-import { decodeBinaryValue, encodeBinaryValue } from "encoding/binary.ts";
+import { DecodedValue, EncodedValue, EncodingPair } from "./_types.ts";
+import { decodeBinaryValue, encodeBinaryValue } from "./binary.ts";
 
 const encoder = new TextEncoder();
 const decoder = new TextDecoder(undefined, { ignoreBOM: true });

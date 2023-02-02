@@ -1,4 +1,4 @@
-import { DecodedValue, EncodedValue, EncodingPair } from "encoding/_types.ts";
+import { DecodedValue, EncodedValue, EncodingPair } from "./_types.ts";
 
 export function encodeBinaryValue(bytes: Uint8Array): EncodedValue {
   return [bytes.length >> 8, bytes.length & 0xff, ...bytes];
