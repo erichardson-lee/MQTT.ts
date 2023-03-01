@@ -1,4 +1,4 @@
-#!/usr/bin/env deno run --allow-net
+#!/usr/bin/env -S deno run --allow-net
 
 import { Client } from "../mod.ts";
 
