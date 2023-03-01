@@ -207,7 +207,6 @@ Deno.test(
         ]),
         2,
         26,
-        new TextDecoder(),
       ),
       {
         type: "connect",
@@ -335,7 +334,6 @@ Deno.test(
         ),
         2,
         26,
-        new TextDecoder(),
       ),
       {
         type: "connect",

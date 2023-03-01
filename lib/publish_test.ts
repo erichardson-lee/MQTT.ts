@@ -484,7 +484,6 @@ Deno.test(
           qos: 2,
           id: 12,
         },
-        new TextEncoder(),
       ),
     );
 
@@ -528,7 +527,6 @@ Deno.test(
           qos: 2,
           id: 12,
         },
-        new TextEncoder(),
       ),
     );
 
@@ -564,7 +562,6 @@ Deno.test(
           qos: 2,
           id: 13,
         },
-        new TextEncoder(),
       ),
     );
 

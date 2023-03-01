@@ -40,7 +40,6 @@ Deno.test("client can receive one byte at a time", async () => {
         qos: 0,
         id: 0,
       },
-      new TextEncoder(),
     ),
     { trickle: true },
   );
@@ -57,7 +56,6 @@ Deno.test("client can receive one byte at a time", async () => {
       qos: 0,
       id: 0,
     },
-    new TextEncoder(),
   );
 
   // Receive all but the last byte:
@@ -106,7 +104,6 @@ Deno.test("client can receive bytes for multiple packets at once", async () => {
         qos: 0,
         id: 0,
       },
-      new TextEncoder(),
     ),
     ...encodePublish(
       {
@@ -118,7 +115,6 @@ Deno.test("client can receive bytes for multiple packets at once", async () => {
         qos: 0,
         id: 0,
       },
-      new TextEncoder(),
     ),
   ]);
 

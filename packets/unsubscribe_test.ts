@@ -10,7 +10,6 @@ Deno.test("encodeUnsubscribePacket", function encodeUnsubscribePacket() {
         id: 1,
         topicFilters: ["a/b", "c/d"],
       },
-      new TextEncoder(),
     ),
     [
       // fixedHeader
@@ -58,7 +57,6 @@ Deno.test("decodeUnsubscribePacket", function decodeUnsubscribePacket() {
       ]),
       2,
       12,
-      new TextDecoder(),
     ),
     {
       type: "unsubscribe",

@@ -13,7 +13,6 @@ Deno.test("encodeSubscribePacket", function encodeSubscribePacket() {
           { topicFilter: "c/d", qos: 1 },
         ],
       },
-      new TextEncoder(),
     ),
     [
       // fixedHeader
@@ -65,7 +64,6 @@ Deno.test("decodeSubscribePacket", function decodeSubscribePacket() {
       ]),
       2,
       14,
-      new TextDecoder(),
     ),
     {
       type: "subscribe",
