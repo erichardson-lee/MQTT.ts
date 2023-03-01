@@ -111,15 +111,15 @@ export function decode(
     1,
   );
 
-  const packetLength = 1 + endOffset + remainingLength;
+  const packetLength = endOffset + remainingLength;
 
   if (buffer.length < packetLength) {
-    return null;
+    throw new Error(`Buffer too short for packet`);
   }
 
   const packet = decoder(
     buffer,
-    1 + endOffset,
+    endOffset,
     remainingLength,
   );
 

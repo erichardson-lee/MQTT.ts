@@ -276,17 +276,11 @@ export abstract class Client {
     this.log = this.options.logger || (() => {});
   }
 
-  public connect(): Promise<ConnackPacket> {
-    switch (this.connectionState) {
-      case "offline":
-      case "disconnected":
-        break;
-      default:
-        return Promise.reject(
-          new Error(
-            `should not be connecting in ${this.connectionState} state`,
-          ),
-        );
+  public async connect(): Promise<ConnackPacket> {
+    if (!["offline", "disconnected"].includes(this.connectionState)) {
+      throw new Error(
+        `should not be connecting in ${this.connectionState} state`,
+      );
     }
 
     this.disconnectRequested = false;
@@ -295,7 +289,7 @@ export abstract class Client {
 
     this.unresolvedConnect = deferred;
 
-    this.openConnection();
+    await this.openConnection();
 
     return deferred.promise;
   }
@@ -731,8 +725,17 @@ export abstract class Client {
       buffer = bytes;
     }
 
+    outer:
     do {
-      const packet = this.decode(buffer);
+      let packet: AnyPacketWithLength | null = null;
+      try {
+        packet = this.decode(buffer);
+      } catch (e) {
+        if (e instanceof Error && e.message === `Buffer too short for packet`) {
+          break outer;
+        }
+        throw e;
+      }
 
       if (!packet) {
         break;
