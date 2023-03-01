@@ -344,6 +344,15 @@ Deno.test(
         password: undefined,
         will: {
           qos: 1,
+          payload: new Uint8Array([
+            111, // 'o'
+            102, // 'f'
+            102, // 'f'
+            108, // 'l'
+            105, // 'i'
+            110, // 'n'
+            101, // 'e'
+          ]),
           retain: true,
           topic: "topic1",
         },
